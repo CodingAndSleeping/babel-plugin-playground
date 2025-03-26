@@ -1,0 +1,34 @@
+import { FC } from 'react';
+import { Allotment } from 'allotment';
+import 'allotment/dist/style.css';
+
+import styles from './index.module.scss';
+import Header from './components/header';
+import SourcePane from './components/sourcePane';
+import PluginPane from './components/pluginPane';
+import ResultPane from './components/resultPane';
+import { PlaygoundProvier } from './context';
+
+const Playground: FC = () => {
+  return (
+    <PlaygoundProvier>
+      <div className={styles['main']}>
+        <Header></Header>
+        <Allotment className={styles['main-content']}>
+          <Allotment.Pane>
+            <SourcePane></SourcePane>
+          </Allotment.Pane>
+          <Allotment.Pane>
+            <PluginPane></PluginPane>
+          </Allotment.Pane>
+
+          <Allotment.Pane>
+            <ResultPane></ResultPane>
+          </Allotment.Pane>
+        </Allotment>
+      </div>
+    </PlaygoundProvier>
+  );
+};
+
+export default Playground;

@@ -1,0 +1,9 @@
+.main {
+  height: 100%;
+  width: 100%;
+
+  &-content {
+    height: calc(100% - 3rem);
+    width: 100%;
+  }
+}
