@@ -36,6 +36,9 @@ importers:
       '@eslint/js':
         specifier: ^9.21.0
         version: 9.23.0
+      '@types/babel__core':
+        specifier: ^7.20.5
+        version: 7.20.5
       '@types/babel__standalone':
         specifier: ^7.1.9
         version: 7.1.9

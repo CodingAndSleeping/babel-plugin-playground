@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/babel__core": "^7.20.5",
     "@types/babel__standalone": "^7.1.9",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.13.13",

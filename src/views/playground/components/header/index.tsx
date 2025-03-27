@@ -5,18 +5,25 @@ import githubImg from '@/assets/imgs/github.svg';
 import moonImg from '@/assets/imgs/moon.svg';
 import { transform } from '@babel/standalone';
 import { useStore } from '@/store';
+
 const Header: FC = () => {
   const sourceCode = useStore((state) => state.sourceCode);
   const pluginCode = useStore((state) => state.pluginCode);
   const setResultCode = useStore((state) => state.setResultCode);
 
   const onClick = async () => {
-    const url = URL.createObjectURL(
-      new Blob([pluginCode], { type: 'application/javascript' }),
-    );
-
     try {
+      const pluginCodeJs = transform(pluginCode, {
+        presets: ['typescript'],
+        filename: 'source.tsx',
+      });
+
+      const url = URL.createObjectURL(
+        new Blob([pluginCodeJs.code || ''], { type: 'application/javascript' }),
+      );
+
       const result = await import(url);
+
       const { code } = transform(sourceCode, {
         presets: ['react', 'typescript'],
         filename: 'source.tsx',
