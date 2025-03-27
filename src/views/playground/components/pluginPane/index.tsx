@@ -7,7 +7,7 @@ import { createAta } from './ata';
 const PluginPane: FC = () => {
   const pluginCode = useStore((state) => state.pluginCode);
   const setPluginCode = useStore((state) => state.setPluginCode);
-
+  const theme = useStore((state) => state.theme);
   const onMount: EditorProps['onMount'] = (editor, monaco) => {
     const ata = createAta((code, path) => {
       monaco.languages.typescript.typescriptDefaults.addExtraLib(
@@ -30,6 +30,7 @@ const PluginPane: FC = () => {
         language="typescript" // 编辑器语言
         path="plugin.ts"
         value={pluginCode || ''} // 编辑器内容
+        theme={`vs-${theme}`}
         options={{
           fontSize: 14,
           scrollBeyondLastLine: false, // 允许滚动到最后一行

@@ -6,7 +6,7 @@ import { useStore } from '@/store';
 const SourcePane: FC = () => {
   const sourceCode = useStore((state) => state.sourceCode);
   const setSourceCode = useStore((state) => state.setSourceCode);
-
+  const theme = useStore((state) => state.theme);
   const onChange: EditorProps['onChange'] = (value: string | undefined) => {
     if (!value) return;
 
@@ -19,6 +19,7 @@ const SourcePane: FC = () => {
         language="typescript" // 编辑器语言
         path="source.tsx"
         value={sourceCode || ''} // 编辑器内容
+        theme={`vs-${theme}`}
         options={{
           fontSize: 14,
           scrollBeyondLastLine: false, // 允许滚动到最后一行

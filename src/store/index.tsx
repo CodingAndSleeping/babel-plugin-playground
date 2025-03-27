@@ -20,12 +20,16 @@ export const useStore = create<State & Action>()((set) => ({
   sourceCode,
   pluginCode,
   resultCode,
-  theme: 'light',
+  theme: (localStorage.getItem('theme') as State['theme']) || 'light',
 
   setSourceCode: (code: string) => set(() => ({ sourceCode: code })),
   setPluginCode: (code: string) => set(() => ({ pluginCode: code })),
   setResultCode: (code: string) => set(() => ({ resultCode: code })),
-  setTheme: (theme: State['theme']) => set(() => ({ theme })),
+  setTheme: (theme: State['theme']) => {
+    set(() => ({ theme }));
+
+    localStorage.setItem('theme', theme);
+  },
 }));
 
 // type PlaygroundContextType = {

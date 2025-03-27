@@ -2,3 +2,15 @@
   height: 100%;
   width: 100%;
 }
+
+.light {
+  --bg-color: #eeeeee;
+  --text-color: #333;
+  --btn-color: #ffd000;
+}
+
+.dark {
+  --bg-color: #333;
+  --text-color: #f5f5f5;
+  --btn-color: #ba9802;
+}

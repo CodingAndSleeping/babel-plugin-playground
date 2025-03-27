@@ -13,10 +13,10 @@ const Playground: FC = () => {
     <div className={styles['main']}>
       <Header></Header>
       <Allotment className={styles['main-content']}>
-        <Allotment.Pane>
+        <Allotment.Pane preferredSize={'25%'}>
           <SourcePane></SourcePane>
         </Allotment.Pane>
-        <Allotment.Pane>
+        <Allotment.Pane preferredSize={'50%'}>
           <PluginPane></PluginPane>
         </Allotment.Pane>
 

@@ -4,7 +4,7 @@ import { useStore } from '@/store';
 
 const ResultPane: FC = () => {
   const resultCode = useStore((state) => state.resultCode);
-
+  const theme = useStore((state) => state.theme);
   const onMount: EditorProps['onMount'] = (editor, monaco) => {
     // editor 挂载时的回调函数
     editor.addCommand(
@@ -25,6 +25,7 @@ const ResultPane: FC = () => {
       <Editor
         language="javascript" // 编辑器语言
         value={resultCode || ''} // 编辑器内容
+        theme={`vs-${theme}`}
         options={{
           fontSize: 14,
           scrollBeyondLastLine: false, // 允许滚动到最后一行
