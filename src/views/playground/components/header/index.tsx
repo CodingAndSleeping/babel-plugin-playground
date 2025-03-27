@@ -1,31 +1,25 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import styles from './index.module.scss';
 import babelImg from '@/assets/imgs/babel.svg';
 import githubImg from '@/assets/imgs/github.svg';
 import moonImg from '@/assets/imgs/moon.svg';
-import { playgroundContext } from '../../context';
 import { transform } from '@babel/standalone';
+import { useStore } from '@/store';
 const Header: FC = () => {
-  const { sourceCode, pluginCode, setResultCode } =
-    useContext(playgroundContext);
+  const sourceCode = useStore((state) => state.sourceCode);
+  const pluginCode = useStore((state) => state.pluginCode);
+  const setResultCode = useStore((state) => state.setResultCode);
 
   const onClick = async () => {
     const url = URL.createObjectURL(
       new Blob([pluginCode], { type: 'application/javascript' }),
     );
 
-    console.log(url);
-
     try {
       const result = await import(url);
-
-      // console.log(result.default());
-
-      // console.log(result);
-
       const { code } = transform(sourceCode, {
         presets: ['react', 'typescript'],
-        filename: 'index.js',
+        filename: 'source.tsx',
         plugins: [result.default],
       });
 

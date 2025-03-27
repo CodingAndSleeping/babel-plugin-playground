@@ -7,27 +7,24 @@ import Header from './components/header';
 import SourcePane from './components/sourcePane';
 import PluginPane from './components/pluginPane';
 import ResultPane from './components/resultPane';
-import { PlaygoundProvier } from './context';
 
 const Playground: FC = () => {
   return (
-    <PlaygoundProvier>
-      <div className={styles['main']}>
-        <Header></Header>
-        <Allotment className={styles['main-content']}>
-          <Allotment.Pane>
-            <SourcePane></SourcePane>
-          </Allotment.Pane>
-          <Allotment.Pane>
-            <PluginPane></PluginPane>
-          </Allotment.Pane>
+    <div className={styles['main']}>
+      <Header></Header>
+      <Allotment className={styles['main-content']}>
+        <Allotment.Pane>
+          <SourcePane></SourcePane>
+        </Allotment.Pane>
+        <Allotment.Pane>
+          <PluginPane></PluginPane>
+        </Allotment.Pane>
 
-          <Allotment.Pane>
-            <ResultPane></ResultPane>
-          </Allotment.Pane>
-        </Allotment>
-      </div>
-    </PlaygoundProvier>
+        <Allotment.Pane>
+          <ResultPane></ResultPane>
+        </Allotment.Pane>
+      </Allotment>
+    </div>
   );
 };
 

@@ -1,8 +1,9 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Editor, { EditorProps } from '@monaco-editor/react';
-import { playgroundContext } from '../../context';
+import { useStore } from '@/store';
+
 const ResultPane: FC = () => {
-  const { resultCode, language } = useContext(playgroundContext);
+  const resultCode = useStore((state) => state.resultCode);
 
   const onMount: EditorProps['onMount'] = (editor, monaco) => {
     // editor 挂载时的回调函数
@@ -22,7 +23,7 @@ const ResultPane: FC = () => {
   return (
     <div style={{ height: '100%' }}>
       <Editor
-        language={language} // 编辑器语言
+        language="javascript" // 编辑器语言
         value={resultCode || ''} // 编辑器内容
         options={{
           fontSize: 14,

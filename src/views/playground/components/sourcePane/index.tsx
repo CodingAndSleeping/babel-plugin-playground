@@ -1,9 +1,11 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Editor, { EditorProps } from '@monaco-editor/react';
-import { playgroundContext } from '../../context';
+
 import { debounce } from 'lodash-es';
+import { useStore } from '@/store';
 const SourcePane: FC = () => {
-  const { sourceCode, setSourceCode, language } = useContext(playgroundContext);
+  const sourceCode = useStore((state) => state.sourceCode);
+  const setSourceCode = useStore((state) => state.setSourceCode);
 
   const onChange: EditorProps['onChange'] = (value: string | undefined) => {
     if (!value) return;
@@ -14,7 +16,8 @@ const SourcePane: FC = () => {
   return (
     <div style={{ height: '100%' }}>
       <Editor
-        language={language} // 编辑器语言
+        language="typescript" // 编辑器语言
+        path="source.tsx"
         value={sourceCode || ''} // 编辑器内容
         options={{
           fontSize: 14,

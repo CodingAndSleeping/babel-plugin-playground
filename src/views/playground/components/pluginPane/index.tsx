@@ -1,9 +1,11 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Editor, { EditorProps } from '@monaco-editor/react';
-import { playgroundContext } from '../../context';
+
 import { debounce } from 'lodash-es';
+import { useStore } from '@/store';
 const PluginPane: FC = () => {
-  const { pluginCode, setPluginCode, language } = useContext(playgroundContext);
+  const pluginCode = useStore((state) => state.pluginCode);
+  const setPluginCode = useStore((state) => state.setPluginCode);
 
   const onChange: EditorProps['onChange'] = (value: string | undefined) => {
     if (!value) return;
@@ -13,7 +15,7 @@ const PluginPane: FC = () => {
   return (
     <div style={{ height: '100%' }}>
       <Editor
-        language={language} // 编辑器语言
+        language="javascript" // 编辑器语言
         value={pluginCode || ''} // 编辑器内容
         options={{
           fontSize: 14,
