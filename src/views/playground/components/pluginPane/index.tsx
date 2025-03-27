@@ -9,6 +9,10 @@ const PluginPane: FC = () => {
   const setPluginCode = useStore((state) => state.setPluginCode);
   const theme = useStore((state) => state.theme);
   const onMount: EditorProps['onMount'] = (editor, monaco) => {
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+      console.log('hello');
+      editor.getAction('editor.action.formatDocument')?.run();
+    });
     const ata = createAta((code, path) => {
       monaco.languages.typescript.typescriptDefaults.addExtraLib(
         code,
