@@ -6,6 +6,7 @@ import githubWhiteImg from '@/assets/imgs/github-white.svg';
 import sunImg from '@/assets/imgs/sun.svg';
 import moonImg from '@/assets/imgs/moon.svg';
 import shareImg from '@/assets/imgs/share.svg';
+import shareWhiteImg from '@/assets/imgs/share-white.svg';
 import { useStore } from '@/store';
 
 const Header: FC = () => {
@@ -43,7 +44,11 @@ const Header: FC = () => {
           alt="moon"
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         ></img>
-        <img src={shareImg} alt="share" onClick={handleShare}></img>
+        <img
+          src={theme === 'light' ? shareImg : shareWhiteImg}
+          alt="share"
+          onClick={handleShare}
+        ></img>
         <img
           src={theme === 'light' ? githubImg : githubWhiteImg}
           alt="github"
