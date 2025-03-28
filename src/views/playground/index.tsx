@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Allotment } from 'allotment';
 import 'allotment/dist/style.css';
 
@@ -7,8 +7,19 @@ import Header from './components/header';
 import SourcePane from './components/sourcePane';
 import PluginPane from './components/pluginPane';
 import ResultPane from './components/resultPane';
+import { compress } from '@/utils';
+import { useStore } from '@/store';
 
 const Playground: FC = () => {
+  const { sourceCode, pluginCode, resultCode } = useStore((state) => state);
+
+  useEffect(() => {
+    const hash = compress(
+      JSON.stringify({ sourceCode, pluginCode, resultCode }),
+    );
+    window.location.hash = hash || '';
+  }, [sourceCode, pluginCode, resultCode]);
+
   return (
     <div className={styles['main']}>
       <Header></Header>

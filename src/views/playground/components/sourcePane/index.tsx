@@ -4,9 +4,7 @@ import Editor, { EditorProps } from '@monaco-editor/react';
 import { debounce } from 'lodash-es';
 import { useStore } from '@/store';
 const SourcePane: FC = () => {
-  const sourceCode = useStore((state) => state.sourceCode);
-  const setSourceCode = useStore((state) => state.setSourceCode);
-  const theme = useStore((state) => state.theme);
+  const { sourceCode, setSourceCode, theme } = useStore((state) => state);
   const onChange: EditorProps['onChange'] = (value: string | undefined) => {
     if (!value) return;
 

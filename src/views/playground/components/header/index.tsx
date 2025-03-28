@@ -5,17 +5,24 @@ import githubImg from '@/assets/imgs/github.svg';
 import githubWhiteImg from '@/assets/imgs/github-white.svg';
 import sunImg from '@/assets/imgs/sun.svg';
 import moonImg from '@/assets/imgs/moon.svg';
+import shareImg from '@/assets/imgs/share.svg';
 import { useStore } from '@/store';
 
 const Header: FC = () => {
-  const sourceCode = useStore((state) => state.sourceCode);
-  const pluginCode = useStore((state) => state.pluginCode);
-  const theme = useStore((state) => state.theme);
-  const setTheme = useStore((state) => state.setTheme);
-
-  const worker = useStore((state) => state.worker);
-  const onClick = async () => {
+  const { sourceCode, pluginCode, theme, setTheme, worker } = useStore(
+    (state) => state,
+  );
+  const handleRun = async () => {
     worker.postMessage({ type: 'CODE', sourceCode, pluginCode });
+  };
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href); // 将文本写入剪贴板
+      alert('Sharable URL has been copied to clipboard.');
+    } catch (error) {
+      console.error('复制失败:', error);
+    }
   };
 
   return (
@@ -26,7 +33,7 @@ const Header: FC = () => {
       </div>
 
       <div className={styles['control-area']}>
-        <button type="button" onClick={onClick}>
+        <button type="button" onClick={handleRun}>
           运行
         </button>
       </div>
@@ -36,6 +43,7 @@ const Header: FC = () => {
           alt="moon"
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         ></img>
+        <img src={shareImg} alt="share" onClick={handleShare}></img>
         <img
           src={theme === 'light' ? githubImg : githubWhiteImg}
           alt="github"

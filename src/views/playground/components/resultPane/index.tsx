@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { useStore } from '@/store';
 import Message from './message';
@@ -9,16 +9,14 @@ type WorkerMessage = {
 };
 
 const ResultPane: FC = () => {
-  const resultCode = useStore((state) => state.resultCode);
-  const theme = useStore((state) => state.theme);
-
-  const worker = useStore((state) => state.worker);
-  const setResultCode = useStore((state) => state.setResultCode);
+  const { resultCode, theme, worker, setResultCode } = useStore(
+    (state) => state,
+  );
 
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    worker.addEventListener('message', (e: MessageEvent<WorkerMessage>) => {
+  const handleMessage = useCallback(
+    (e: MessageEvent<WorkerMessage>) => {
       const { type, result } = e.data;
 
       if (type === 'CODE') {
@@ -28,8 +26,17 @@ const ResultPane: FC = () => {
         setError(result);
         setResultCode('');
       }
-    });
-  }, [worker, setResultCode]);
+    },
+    [setResultCode],
+  );
+
+  useEffect(() => {
+    worker.addEventListener('message', handleMessage);
+
+    return () => {
+      worker.removeEventListener('message', handleMessage);
+    };
+  }, []);
 
   return (
     <div style={{ height: '100%', width: '100%' }}>

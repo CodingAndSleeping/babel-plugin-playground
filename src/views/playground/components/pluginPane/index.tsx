@@ -5,9 +5,7 @@ import { debounce } from 'lodash-es';
 import { useStore } from '@/store';
 import { createAta } from './ata';
 const PluginPane: FC = () => {
-  const pluginCode = useStore((state) => state.pluginCode);
-  const setPluginCode = useStore((state) => state.setPluginCode);
-  const theme = useStore((state) => state.theme);
+  const { pluginCode, setPluginCode, theme } = useStore((state) => state);
   const onMount: EditorProps['onMount'] = (editor, monaco) => {
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
       editor.getAction('editor.action.formatDocument')?.run();

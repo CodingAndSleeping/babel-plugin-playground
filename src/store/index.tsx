@@ -1,8 +1,9 @@
-import { sourceCode, pluginCode, resultCode } from './initCode';
+import { initSourceCode, initPluginCode, initResultCode } from './initCode';
 
 import { create } from 'zustand';
 
 import Worker from '@/views/playground/worker/compile.ts?worker';
+import { uncompress } from '@/utils';
 
 export type State = {
   sourceCode: string;
@@ -21,24 +22,42 @@ export type Action = {
   setTheme: (theme: State['theme']) => void;
 };
 
-export const useStore = create<State & Action>()((set) => ({
-  sourceCode,
-  pluginCode,
-  resultCode,
+function getCodeFromUrl() {
+  let code = {
+    sourceCode: '',
+    pluginCode: '',
+    resultCode: '',
+  };
+  try {
+    const codeObj = uncompress(window.location.hash.slice(1));
+    if (codeObj) code = JSON.parse(codeObj);
+  } catch (e) {
+    console.error(e);
+  }
+  return code;
+}
 
-  worker: new Worker(),
+export const useStore = create<State & Action>()((set) => {
+  const { sourceCode, pluginCode, resultCode } = getCodeFromUrl();
+  return {
+    sourceCode: sourceCode || initSourceCode,
+    pluginCode: pluginCode || initPluginCode,
+    resultCode: resultCode || initResultCode,
 
-  theme: (localStorage.getItem('theme') as State['theme']) || 'light',
+    worker: new Worker(),
 
-  setSourceCode: (code: string) => set(() => ({ sourceCode: code })),
-  setPluginCode: (code: string) => set(() => ({ pluginCode: code })),
-  setResultCode: (code: string) => set(() => ({ resultCode: code })),
-  setTheme: (theme: State['theme']) => {
-    set(() => ({ theme }));
+    theme: (localStorage.getItem('theme') as State['theme']) || 'light',
 
-    localStorage.setItem('theme', theme);
-  },
-}));
+    setSourceCode: (code: string) => set(() => ({ sourceCode: code })),
+    setPluginCode: (code: string) => set(() => ({ pluginCode: code })),
+    setResultCode: (code: string) => set(() => ({ resultCode: code })),
+    setTheme: (theme: State['theme']) => {
+      set(() => ({ theme }));
+
+      localStorage.setItem('theme', theme);
+    },
+  };
+});
 
 // type PlaygroundContextType = {
 //   sourceCode: string;

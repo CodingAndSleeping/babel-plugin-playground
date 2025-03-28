@@ -1,6 +1,6 @@
-export const sourceCode = `const fn = () => 'hello babel'`;
+export const initSourceCode = `const fn = () => 'hello babel'`;
 
-export const pluginCode = `import * as Babel from "@babel/core";
+export const initPluginCode = `import * as Babel from "@babel/core";
 
 const transformFunction = ({ types: t }: typeof Babel): Babel.PluginObj => {
   return {
@@ -22,6 +22,6 @@ const transformFunction = ({ types: t }: typeof Babel): Babel.PluginObj => {
 };
 export default transformFunction;`;
 
-export const resultCode = `const fn = function () {
+export const initResultCode = `const fn = function () {
   return 'hello babel';
 };`;
