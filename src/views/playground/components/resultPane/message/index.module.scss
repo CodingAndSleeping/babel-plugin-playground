@@ -1,0 +1,22 @@
+.error {
+  --color: #f68e90;
+  --background-color: #fceef0;
+}
+
+.warn {
+  --color: #e5a23e;
+  --background-color: #fdf6ec;
+}
+
+.message {
+  width: calc(100% - 2rem);
+  height: 100%;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background-color: var(--background-color);
+  overflow: auto;
+  pre {
+    color: var(--color);
+    white-space: break-spaces;
+  }
+}

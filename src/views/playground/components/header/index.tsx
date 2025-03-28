@@ -5,40 +5,17 @@ import githubImg from '@/assets/imgs/github.svg';
 import githubWhiteImg from '@/assets/imgs/github-white.svg';
 import sunImg from '@/assets/imgs/sun.svg';
 import moonImg from '@/assets/imgs/moon.svg';
-import { transform } from '@babel/standalone';
 import { useStore } from '@/store';
 
 const Header: FC = () => {
   const sourceCode = useStore((state) => state.sourceCode);
   const pluginCode = useStore((state) => state.pluginCode);
-  const setResultCode = useStore((state) => state.setResultCode);
   const theme = useStore((state) => state.theme);
   const setTheme = useStore((state) => state.setTheme);
+
+  const worker = useStore((state) => state.worker);
   const onClick = async () => {
-    try {
-      const pluginCodeJs = transform(pluginCode, {
-        presets: ['typescript'],
-        filename: 'source.tsx',
-      });
-
-      const url = URL.createObjectURL(
-        new Blob([pluginCodeJs.code || ''], { type: 'application/javascript' }),
-      );
-
-      const result = await import(url);
-
-      const { code } = transform(sourceCode, {
-        presets: ['react', 'typescript'],
-        filename: 'source.tsx',
-        plugins: [result.default],
-      });
-
-      if (code) {
-        setResultCode(code);
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    worker.postMessage({ type: 'CODE', sourceCode, pluginCode });
   };
 
   return (

@@ -18,7 +18,7 @@ const SourcePane: FC = () => {
       <Editor
         language="typescript" // 编辑器语言
         path="source.tsx"
-        value={sourceCode || ''} // 编辑器内容
+        value={sourceCode} // 编辑器内容
         theme={`vs-${theme}`}
         options={{
           fontSize: 14,

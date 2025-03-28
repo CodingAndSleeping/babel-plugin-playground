@@ -2,10 +2,15 @@ import { sourceCode, pluginCode, resultCode } from './initCode';
 
 import { create } from 'zustand';
 
+import Worker from '@/views/playground/worker/compile.ts?worker';
+
 export type State = {
   sourceCode: string;
   pluginCode: string;
   resultCode: string;
+
+  worker: Worker;
+
   theme: 'light' | 'dark';
 };
 
@@ -20,6 +25,9 @@ export const useStore = create<State & Action>()((set) => ({
   sourceCode,
   pluginCode,
   resultCode,
+
+  worker: new Worker(),
+
   theme: (localStorage.getItem('theme') as State['theme']) || 'light',
 
   setSourceCode: (code: string) => set(() => ({ sourceCode: code })),
