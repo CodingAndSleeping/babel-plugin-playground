@@ -11,14 +11,12 @@ import { compress } from '@/utils';
 import { useStore } from '@/store';
 
 const Playground: FC = () => {
-  const { sourceCode, pluginCode, resultCode } = useStore((state) => state);
+  const { sourceCode, pluginCode } = useStore((state) => state);
 
   useEffect(() => {
-    const hash = compress(
-      JSON.stringify({ sourceCode, pluginCode, resultCode }),
-    );
+    const hash = compress(JSON.stringify({ sourceCode, pluginCode }));
     window.location.hash = hash || '';
-  }, [sourceCode, pluginCode, resultCode]);
+  }, [sourceCode, pluginCode]);
 
   return (
     <div className={styles['main']}>

@@ -9,10 +9,9 @@ type WorkerMessage = {
 };
 
 const ResultPane: FC = () => {
-  const { resultCode, theme, worker, setResultCode } = useStore(
-    (state) => state,
-  );
+  const { sourceCode, pluginCode, theme, worker } = useStore((state) => state);
 
+  const [resultCode, setResultCode] = useState('');
   const [error, setError] = useState('');
 
   const handleMessage = useCallback(
@@ -32,6 +31,8 @@ const ResultPane: FC = () => {
 
   useEffect(() => {
     worker.addEventListener('message', handleMessage);
+
+    worker.postMessage({ type: 'CODE', sourceCode, pluginCode });
 
     return () => {
       worker.removeEventListener('message', handleMessage);
