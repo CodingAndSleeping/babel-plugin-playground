@@ -17,13 +17,14 @@ const PluginPane: FC = () => {
     });
 
     const ata = createAta((code, path) => {
+      console.log(path);
       monaco.languages.typescript.typescriptDefaults.addExtraLib(
         code,
         `file://${path}`,
       );
     });
 
-    ata('import * as Babel from "@babel/core";');
+    ata('import * as Babel from "@babel/core"');
   };
 
   const onChange: EditorProps['onChange'] = (value: string | undefined) => {
