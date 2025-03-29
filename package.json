@@ -19,6 +19,7 @@
     "lodash-es": "^4.17.21",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-json-view": "^1.21.3",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

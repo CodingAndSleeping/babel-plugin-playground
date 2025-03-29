@@ -1,5 +1,28 @@
 import { transform } from '@babel/standalone';
 
+import { safeSerialize } from '@/utils/index';
+
+type consoleType = 'log' | 'warn' | 'error' | 'info' | 'debug';
+
+const consoleProxy = new Proxy(console, {
+  get(target, prop: consoleType) {
+    if (['log', 'warn', 'error', 'info', 'debug'].includes(prop)) {
+      return (...args: any[]) => {
+        Reflect.get(target, prop)(...args);
+
+        self.postMessage({
+          type: 'CONSOLE',
+          result: args.map((arg) => safeSerialize(arg)),
+        });
+      };
+    }
+    return Reflect.get(target, prop);
+  },
+});
+
+// 替换全局 console（注意：某些环境可能不允许）
+globalThis.console = consoleProxy;
+
 const compile = async (sourceCode: string, pluginCode: string) => {
   const pluginCodeJs = transform(pluginCode, {
     presets: ['typescript'],

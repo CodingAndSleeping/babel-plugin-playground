@@ -12,6 +12,8 @@ export type State = {
   worker: Worker;
 
   theme: 'light' | 'dark';
+
+  consoleContents: any[];
 };
 
 export type Action = {
@@ -19,6 +21,10 @@ export type Action = {
   setPluginCode: (code: string) => void;
 
   setTheme: (theme: State['theme']) => void;
+
+  setConsoleContents: (content: any) => void;
+
+  clearConsoleContents: () => void;
 };
 
 function getCodeFromUrl() {
@@ -45,11 +51,20 @@ export const useStore = create<State & Action>()((set) => {
 
     theme: (localStorage.getItem('theme') as State['theme']) || 'light',
 
+    consoleContents: [],
+
     setSourceCode: (code: string) => set(() => ({ sourceCode: code })),
     setPluginCode: (code: string) => set(() => ({ pluginCode: code })),
     setTheme: (theme: State['theme']) => {
       set(() => ({ theme }));
       localStorage.setItem('theme', theme);
     },
+
+    setConsoleContents: (content: any) =>
+      set((state) => ({
+        consoleContents: [...state.consoleContents, content],
+      })),
+
+    clearConsoleContents: () => set(() => ({ consoleContents: [] })),
   };
 });

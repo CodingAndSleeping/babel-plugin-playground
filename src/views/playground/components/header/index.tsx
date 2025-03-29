@@ -10,10 +10,17 @@ import shareWhiteImg from '@/assets/imgs/share-white.svg';
 import { useStore } from '@/store';
 
 const Header: FC = () => {
-  const { sourceCode, pluginCode, theme, setTheme, worker } = useStore(
-    (state) => state,
-  );
+  const {
+    sourceCode,
+    pluginCode,
+    theme,
+    setTheme,
+    worker,
+    clearConsoleContents,
+  } = useStore((state) => state);
   const handleRun = async () => {
+    clearConsoleContents();
+
     worker.postMessage({ type: 'CODE', sourceCode, pluginCode });
   };
 

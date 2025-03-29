@@ -11,10 +11,11 @@
 .message {
   width: calc(100% - 2rem);
   height: 100%;
-  z-index: 10;
+
   padding: 0.5rem 1rem;
   background-color: var(--background-color);
-  overflow: auto;
+  overflow: scroll;
+
   pre {
     color: var(--color);
     white-space: break-spaces;

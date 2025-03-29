@@ -17,7 +17,6 @@ const PluginPane: FC = () => {
     });
 
     const ata = createAta((code, path) => {
-      console.log(path);
       monaco.languages.typescript.typescriptDefaults.addExtraLib(
         code,
         `file://${path}`,
