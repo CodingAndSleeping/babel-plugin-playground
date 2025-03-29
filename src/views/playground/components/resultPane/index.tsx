@@ -37,7 +37,7 @@ const ResultPane: FC = () => {
     return () => {
       worker.removeEventListener('message', handleMessage);
     };
-  }, []);
+  }, [worker, handleMessage, sourceCode, pluginCode]);
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
