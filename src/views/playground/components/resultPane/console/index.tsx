@@ -28,6 +28,7 @@ const Console: FC<Props> = ({ contents }) => {
                   name={false}
                   displayDataTypes={false}
                   enableClipboard={false}
+                  displayObjectSize={false}
                   theme={theme === 'dark' ? 'railscasts' : 'rjv-default'}
                 />
               ) : (
