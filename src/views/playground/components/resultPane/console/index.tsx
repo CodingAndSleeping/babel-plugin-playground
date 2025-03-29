@@ -18,7 +18,13 @@ const Console: FC<Props> = ({ contents }) => {
           <div className={styles['console-item']} key={index}>
             {content.map((item: any, index: number) =>
               typeof item === 'object' ? (
-                <JsonView src={item} key={index} collapsed name={false} />
+                <JsonView
+                  src={item}
+                  key={index}
+                  collapsed
+                  name={false}
+                  displayDataTypes={false}
+                />
               ) : (
                 <p key={index}>{item.toString()}</p>
               ),
