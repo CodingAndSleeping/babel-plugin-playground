@@ -1,14 +1,14 @@
 .console {
   height: 100%;
 
-  background-color: #ffffff;
-
+  background-color: var(--bg-color);
+  color: var(--text-color);
   .console-header {
     height: 1.5rem;
     width: 100%;
     border-bottom: 1px solid #e5e5e5;
     line-height: 1.5rem;
-    background-color: #e5e5e5;
+    background-color: var(--console-header-color);
     padding: 0 0.5rem;
   }
 

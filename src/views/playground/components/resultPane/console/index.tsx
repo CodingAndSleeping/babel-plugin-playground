@@ -2,12 +2,15 @@ import { FC, memo } from 'react';
 import styles from './index.module.scss';
 
 import JsonView from 'react-json-view';
+import { useStore } from '@/store';
 
 type Props = {
   contents: any[];
 };
 
 const Console: FC<Props> = ({ contents }) => {
+  const { theme } = useStore((state) => state);
+
   return (
     <div className={styles['console']}>
       <div className={styles['console-header']}>
@@ -24,6 +27,7 @@ const Console: FC<Props> = ({ contents }) => {
                   collapsed
                   name={false}
                   displayDataTypes={false}
+                  theme={theme === 'dark' ? 'railscasts' : 'rjv-default'}
                 />
               ) : (
                 <p key={index}>{item.toString()}</p>
