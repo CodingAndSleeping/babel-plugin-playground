@@ -1,6 +1,6 @@
 import { transform } from '@babel/standalone';
 
-import { safeSerialize } from '@/utils/index';
+import { serializeArg } from '@/utils/index';
 
 type consoleType = 'log' | 'warn' | 'error' | 'info' | 'debug';
 
@@ -9,10 +9,10 @@ const consoleProxy = new Proxy(console, {
     if (['log', 'warn', 'error', 'info', 'debug'].includes(prop)) {
       return (...args: any[]) => {
         Reflect.get(target, prop)(...args);
-
+        console.dir(args);
         self.postMessage({
           type: 'CONSOLE',
-          result: args.map((arg) => safeSerialize(arg)),
+          result: args.map((arg) => serializeArg(arg)),
         });
       };
     }
