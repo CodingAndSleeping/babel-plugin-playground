@@ -9,7 +9,6 @@ const consoleProxy = new Proxy(console, {
     if (['log', 'warn', 'error', 'info', 'debug'].includes(prop)) {
       return (...args: any[]) => {
         Reflect.get(target, prop)(...args);
-        console.dir(args);
         self.postMessage({
           type: 'CONSOLE',
           result: args.map((arg) => serializeArg(arg)),
