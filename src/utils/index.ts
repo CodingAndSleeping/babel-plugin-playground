@@ -1,11 +1,5 @@
 import { strFromU8, strToU8, unzlibSync, zlibSync } from 'fflate';
 
-// import { VISITOR_KEYS } from '@babel/types';
-
-// import Babel from '@babel/core';
-
-import { packages } from '@babel/standalone';
-
 /**
  * 压缩字符串
  * @param data 原始数据
