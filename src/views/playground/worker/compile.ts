@@ -1,7 +1,6 @@
 import { transform } from '@babel/standalone';
 
-import { serializeArg } from '@/utils/index';
-
+import { stringify, parse } from 'flatted';
 type consoleType = 'log' | 'warn' | 'error' | 'info' | 'debug';
 
 const consoleProxy = new Proxy(console, {
@@ -11,7 +10,7 @@ const consoleProxy = new Proxy(console, {
         Reflect.get(target, prop)(...args);
         self.postMessage({
           type: 'CONSOLE',
-          result: args.map((arg) => serializeArg(arg)),
+          result: args.map((arg) => parse(stringify(arg))),
         });
       };
     }
